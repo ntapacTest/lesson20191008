@@ -2,6 +2,8 @@ package com.maup.lesson20191008.service;
 
 import com.maup.lesson20191008.model.User;
 import com.maup.lesson20191008.repo.UserRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    Logger logger= LoggerFactory.getLogger(UserService.class);
     private UserRepo userRepo;
 
     @Autowired
@@ -26,9 +29,11 @@ public class UserService {
         User userEmail=userRepo.findUserByEmail(user.getEmail());
         if(userEmail==null) {
             userRepo.save(user);
+            logger.info("user: "+user.toString() +"added");
         }
         else {
-            System.out.println("User with this email " + user.getEmail()+" is already exists.");
+            System.out.println("user with this email " + user.getEmail()+" is already exists");
+            logger.info("user exist");
         }
     }
 

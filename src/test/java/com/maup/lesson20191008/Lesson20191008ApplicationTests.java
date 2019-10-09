@@ -39,10 +39,10 @@ public class Lesson20191008ApplicationTests {
     @Commit
     public void testAddUserCrudRepository(){
         User anton = new User();
-        anton.setFirstName("Anton");
-        anton.setLastName("Anton'ch");
+        anton.setFirstName("Ivan");
+        anton.setLastName("Ivanich");
         anton.setLocale("ua");
-        anton.setEmail("testmail@mail.com");
+        anton.setEmail("testmail2@mail2.com");
         userService.save(anton);
     }
 
