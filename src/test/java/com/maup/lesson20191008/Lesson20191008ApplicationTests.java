@@ -40,7 +40,7 @@ public class Lesson20191008ApplicationTests {
     public void testAddUserCrudRepository(){
         User anton = new User();
         anton.setFirstName("Ivan");
-        anton.setLastName("Ivanich");
+        anton.setLastName("Ivanov");
         anton.setLocale("ua");
         anton.setEmail("testmail2@mail2.com");
         userService.save(anton);

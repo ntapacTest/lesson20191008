@@ -1,5 +1,6 @@
 package com.maup.lesson20191008.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import lombok.ToString;
 
@@ -14,12 +15,15 @@ import java.util.Set;
 public class User extends SystemDictionary {
 
     @Column(name = "first_name")
+    @JsonView({UserView.MainUserView.class})
     private String firstName;
 
     @Column(name = "last_name")
+    @JsonView({UserView.MainUserView.class})
     private String lastName;
 
     @Column(name = "email")
+    @JsonView({UserView.MainUserView.class})
     private String email;
 
     @Column(name = "locale")

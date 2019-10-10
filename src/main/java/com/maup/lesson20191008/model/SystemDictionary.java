@@ -1,5 +1,6 @@
 package com.maup.lesson20191008.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -12,6 +13,7 @@ public class SystemDictionary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView({SystemDictionaryView.MainSystemDictionaryView.class})
     private long id;
 
     @UpdateTimestamp
