@@ -18,7 +18,7 @@ public class GoodService {
         this.goodRepo = goodRepo;
     }
 
-    public Optional<Good> findById(Long id) {
+    public Optional<Good> findById(String id) {
         return goodRepo.findById(id);
     }
 

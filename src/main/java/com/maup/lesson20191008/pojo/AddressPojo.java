@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class AddressPojo {
-    private Long userId;
+    private String userId;
     private String address;
     private String zip;
 }

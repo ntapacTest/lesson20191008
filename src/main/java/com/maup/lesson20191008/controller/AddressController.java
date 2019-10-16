@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.UnknownServiceException;
 import java.util.List;
 
 
@@ -37,10 +38,9 @@ public class AddressController {
     @PostMapping()
     //@JsonView({AddressView.MainAddressView.class, SystemDictionaryView.MainSystemDictionaryView.class})
     @JsonView({AddressView.MainAddressView.class})
-    public Address createAddress(@Valid @RequestBody AddressPojo addressPojo){
+    public Address createAddress(@Valid @RequestBody AddressPojo addressPojo) throws UnknownServiceException {
         User user=userService
-                .findById(addressPojo.getUserId())
-                .orElseThrow(NoSuchFieldError::new);
+                .findById(addressPojo.getUserId());
         Address address=new Address();
         address.setAddress(addressPojo.getAddress());
         address.setZip(addressPojo.getZip());

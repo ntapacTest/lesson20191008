@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.net.UnknownServiceException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -48,10 +49,9 @@ public class Lesson20191008ApplicationTests {
 
     @Test
     @Transactional
-    public void testUserCrudRepository(){
-        Optional<User> empOpt=userService.findById(1l);
-        System.out.println(empOpt.map(e -> e.getFirstName() + " " + e.getLastName())
-                .orElse("not found"));
+    public void testUserCrudRepository() throws UnknownServiceException {
+        User empOpt=userService.findById("1l");
+        System.out.println(empOpt.getFirstName() + " " + empOpt.getLastName());
     }
 
     @Test

@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.UnknownServiceException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -21,8 +21,8 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public Optional<User> findById(Long id) {
-        return userRepo.findById(id);
+    public User findById(String id) throws UnknownServiceException {
+        return userRepo.findById(id).orElseThrow(UnknownServiceException::new);
     }
 
     public void save(User user) {
