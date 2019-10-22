@@ -1,5 +1,6 @@
 package com.maup.lesson20191008.service;
 
+import com.maup.lesson20191008.exceptions.UserNotFoundException;
 import com.maup.lesson20191008.model.User;
 import com.maup.lesson20191008.repo.UserRepo;
 import org.slf4j.Logger;
@@ -21,8 +22,15 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public User findById(String id) throws UnknownServiceException {
-        return userRepo.findById(id).orElseThrow(UnknownServiceException::new);
+    public User findById(Long id) throws UserNotFoundException {
+        return userRepo.findById(id).orElseThrow(()->new UserNotFoundException("d"));
+    }
+    public User findByGoogleId(String googleId) throws  UserNotFoundException {
+        return userRepo.findUserByGoogleId(googleId).orElseThrow(()->new UserNotFoundException("d"));
+    }
+
+    public User findUserByEmail(String email){
+        return userRepo.findUserByEmail(email);
     }
 
     public void save(User user) {

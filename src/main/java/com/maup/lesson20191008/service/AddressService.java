@@ -1,7 +1,9 @@
 package com.maup.lesson20191008.service;
 
 import com.maup.lesson20191008.model.Address;
+import com.maup.lesson20191008.model.User;
 import com.maup.lesson20191008.repo.AddressRepo;
+import com.maup.lesson20191008.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,8 @@ public class AddressService {
         this.addressRepo = addressRepo;
     }
 
-    public Optional<Address> findById(String id) {
+
+    public Optional<Address> findById(Long id) {
         return addressRepo.findById(id);
     }
 
@@ -36,5 +39,14 @@ public class AddressService {
 
     public List<Address> findAll() {
         return addressRepo.findAll();
+    }
+
+    public List<Address> findByUser(User user) {
+        //return addressRepo.findByUserId(userId);
+        return addressRepo.findAddressesByAddressUserId(user);
+    }
+    public List<Address> findByUserId(Long userId) {
+
+        return addressRepo.findByUserId(userId);
     }
 }

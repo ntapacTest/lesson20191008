@@ -12,9 +12,9 @@ import java.util.Date;
 public class SystemDictionary {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonView({SystemDictionaryView.MainSystemDictionaryView.class})
-    private String id;
+    private Long id;
 
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)

@@ -24,12 +24,13 @@ public class UserResponse extends ResourceSupport {
     @Autowired
     UserDetailPojo userDetailPojo;
 
-    public void addUser(User users) {
+    public void addUser(User user) {
         userDetailPojo = new UserDetailPojo();
-        userDetailPojo.setId(users.getId());
-        userDetailPojo.setFirstName(users.getFirstName());
-        userDetailPojo.setLastName(users.getLastName());
-        userDetailPojo.setEmail(users.getEmail());
+        userDetailPojo.setId(user.getId());
+        userDetailPojo.setFirstName(user.getFirstName());
+        userDetailPojo.setLastName(user.getLastName());
+        userDetailPojo.setEmail(user.getEmail());
+        userDetailPojo.setUserPic(user.getUserPic());
         this.users.add(userDetailPojo);
     }
 

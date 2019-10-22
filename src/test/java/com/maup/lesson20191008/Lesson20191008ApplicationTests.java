@@ -1,5 +1,6 @@
 package com.maup.lesson20191008;
 
+import com.maup.lesson20191008.exceptions.UserNotFoundException;
 import com.maup.lesson20191008.model.User;
 import com.maup.lesson20191008.repo.UserRepo;
 import com.maup.lesson20191008.service.AddressService;
@@ -49,8 +50,8 @@ public class Lesson20191008ApplicationTests {
 
     @Test
     @Transactional
-    public void testUserCrudRepository() throws UnknownServiceException {
-        User empOpt=userService.findById("1l");
+    public void testUserCrudRepository() throws UserNotFoundException {
+        User empOpt=userService.findById(1l);
         System.out.println(empOpt.getFirstName() + " " + empOpt.getLastName());
     }
 

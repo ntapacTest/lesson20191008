@@ -5,8 +5,9 @@ import lombok.Data;
 @Data
 public class UserDetailPojo {
 
-    private String id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
+    private String userPic;
 }

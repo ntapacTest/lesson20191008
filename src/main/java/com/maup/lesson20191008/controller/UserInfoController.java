@@ -1,6 +1,7 @@
 package com.maup.lesson20191008.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.maup.lesson20191008.exceptions.UserNotFoundException;
 import com.maup.lesson20191008.model.User;
 import com.maup.lesson20191008.model.UserView;
 import com.maup.lesson20191008.pojo.UserDetailPojo;
@@ -32,10 +33,10 @@ public class UserInfoController {
     }
 
     @GetMapping()
-    public UserResponse getUserData(@AuthenticationPrincipal User user) throws UnknownServiceException {
+    public UserResponse getUserData(@AuthenticationPrincipal User user) throws UserNotFoundException {
         log.info("select user from UserDetailPojo");
         UserResponse userResponse=new UserResponse();
-        userResponse.addUser(userService.findById(user.getId()));
+        userResponse.addUser(userService.findByGoogleId(user.getGoogleId()));
         return userResponse;
     }
 
@@ -44,10 +45,11 @@ public class UserInfoController {
     @JsonView({UserView.MainUserView.class})
     //@JsonView({UserView.MainUserView.class, SystemDictionaryView.MainSystemDictionaryView.class})
     public User createUser(@Valid @RequestBody UserDetailPojo userDetailPojo){
-        //User user=new User();
+        User user=new User();
         user.setFirstName(userDetailPojo.getFirstName());
         user.setLastName(userDetailPojo.getLastName());
         user.setEmail(userDetailPojo.getEmail());
+        user.setUserPic(userDetailPojo.getUserPic());
         userService.save(user);
         return user;
     }
