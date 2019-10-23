@@ -49,7 +49,7 @@ public class UserInfoController {
         user.setFirstName(userDetailPojo.getFirstName());
         user.setLastName(userDetailPojo.getLastName());
         user.setEmail(userDetailPojo.getEmail());
-        user.setUserPic(userDetailPojo.getUserPic());
+        //user.setUserPic(userDetailPojo.getUserPic());
         userService.save(user);
         return user;
     }

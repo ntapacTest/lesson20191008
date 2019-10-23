@@ -30,7 +30,7 @@ public class UserResponse extends ResourceSupport {
         userDetailPojo.setFirstName(user.getFirstName());
         userDetailPojo.setLastName(user.getLastName());
         userDetailPojo.setEmail(user.getEmail());
-        userDetailPojo.setUserPic(user.getUserPic());
+        //userDetailPojo.setUserPic(user.getUserPic());
         this.users.add(userDetailPojo);
     }
 

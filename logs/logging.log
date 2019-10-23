@@ -1,1 +1,1 @@
-2019-10-22 18:50:18,054 INFO com.maup.lesson20191008.controller.UserInfoController [http-nio-8080-exec-6] select user from UserDetailPojo
+2019-10-23 19:57:11,238 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8080-exec-2] Initializing Spring DispatcherServlet 'dispatcherServlet'
