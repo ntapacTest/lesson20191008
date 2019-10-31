@@ -1,11 +1,9 @@
 package com.maup.lesson20191008.controller;
-
 import com.maup.lesson20191008.exceptions.UserNotFoundException;
 import com.maup.lesson20191008.model.User;
 import com.maup.lesson20191008.pojo.LoginRequest;
 import com.maup.lesson20191008.pojo.SignUpRequest;
 import com.maup.lesson20191008.security.jwt.JwtTokenProvider;
-import com.maup.lesson20191008.service.EmailService;
 import com.maup.lesson20191008.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.mail.MessagingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,21 +30,18 @@ public class LoginController {
 
     private UserService userService;
 
-    private EmailService emailService;
-
     @Autowired
-    public LoginController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, EmailService emailService) {
+    public LoginController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
-        this.emailService=emailService;
     }
 
     @PostMapping("/auth/login")
     public ResponseEntity login(@RequestBody LoginRequest loginRequest) throws UserNotFoundException {
         try {
             String email = loginRequest.getEmail();
-            //authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, loginRequest.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, loginRequest.getPassword()));
             User user = userService.findUserByEmail(email);//find by email
 
             if (user == null) {
@@ -56,21 +50,19 @@ public class LoginController {
 
             String token = jwtTokenProvider.createToken(email, user.getRole());
 
-            emailService.sendMail(user.getEmail(),"Login complete","Login {}"+user.getFirstName());
-
             Map<Object, Object> response = new HashMap<>();
             response.put("email", email);
             response.put("token", token);
 
             return ResponseEntity.ok(response);
-        } catch (AuthenticationException | MessagingException e) {
+        } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }
     }
 
 
     @PostMapping("/auth/signup")
-    public ResponseEntity createAccount(@RequestBody SignUpRequest signUpRequest) throws MessagingException {
+    public ResponseEntity createAccount(@RequestBody SignUpRequest signUpRequest) {
         String firstName = signUpRequest.getFirstName();
         String lastName = signUpRequest.getLastName();
         String email = signUpRequest.getEmail();
@@ -79,12 +71,10 @@ public class LoginController {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
+        user.setUserName(email);
         user.setPassword(new BCryptPasswordEncoder().encode(password));
         userService.save(user);
-
-        emailService.sendMail(user.getEmail(),"Create account complete",String.format("New user %1$s created successfully",user.getFirstName()));
-
-        //authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, user.getPassword()));
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, signUpRequest.getPassword()));
         String token = jwtTokenProvider.createToken(user.getEmail(), user.getRole());
         Map<Object, Object> response = new HashMap<>();
         response.put("email", email);

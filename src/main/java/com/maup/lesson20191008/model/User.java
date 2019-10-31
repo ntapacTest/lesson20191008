@@ -18,11 +18,14 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode(of = {"firstName", "lastName", "googleId", "email", "id", "isActive"})
 @Entity
 @Table(name = "users")
-public class User implements UserDetails {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "user_name")
+    private String userName;
 
     @Column(name = "google_id")
     private String googleId;
@@ -77,39 +80,33 @@ public class User implements UserDetails {
     Set<Address> address;
 
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<String> roles= new ArrayList<>(Arrays.asList(role));
         return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
-    @Override
     public String getPassword() {
         return null;
     }
 
-    @Override
     public String getUsername() {
         return email;
     }
 
-    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    @Override
     public boolean isEnabled() {
         return isActive;
     }
+
 }

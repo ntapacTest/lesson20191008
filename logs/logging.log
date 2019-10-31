@@ -1,1 +1,3 @@
-2019-10-23 19:57:11,238 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8080-exec-2] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-31 20:38:44,702 INFO com.example.shop.service.UserServiceTestMock [main] Started UserServiceTestMock in 8.225 seconds (JVM running for 9.286)
+2019-10-31 20:38:44,780 INFO com.zaxxer.hikari.HikariDataSource [Thread-4] HikariPool-1 - Shutdown initiated...
+2019-10-31 20:38:44,780 INFO com.zaxxer.hikari.HikariDataSource [Thread-4] HikariPool-1 - Shutdown completed.
